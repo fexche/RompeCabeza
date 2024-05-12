@@ -1,8 +1,10 @@
 
 // areas de variables
 let board=document.querySelector('.board');
-let mostrartiempo=document.getElementById('t-restante')
+let mostrartiempo=document.getElementById('tiempo')
+let mostrarmensaje=document.getElementById('mensajeId')
 let tiempo=0
+let gano=false
 
 let matriz =MatrizInicial()
 
@@ -12,26 +14,47 @@ pintarpieza()
 agregarEvento()
 
 
-function contartiempo() {            
-    tiemporegresivoId = setInterval(() => {
-        tiempo++;                  
-        
-        if (tiempo<=1800) // 0.5 Minuto
-            { mostrartiempo.innerHTML = `${formatoHora(tiempo)} 😃 💪 Tu puedes ...`;}
-        else if (tiempo>1800 && tiempo<=3600) // 1  Minuto
-                { mostrartiempo.innerHTML = `${formatoHora(tiempo)} 😳 Hagale mijo de una...`;}
-                else if (tiempo>3600 && tiempo<=5400) // 1.5 Minuto                
-                    { mostrartiempo.innerHTML = `${formatoHora(tiempo)} 😒 Hee..este..sera que estamos perdiendo el tiempo aqui`;}
-                        else if (tiempo>5400 && tiempo<=7200) // 2 Minuto                                        
-                                { mostrartiempo.innerHTML = `${formatoHora(tiempo)} 🤔 Mejor pedi medio dia de vacaciones`;}
-                                    else if (tiempo>7200 && tiempo<=9000) // 2.5 Minuto                
-                                        { mostrartiempo.innerHTML = `${formatoHora(tiempo)} 😡 Cual es tu objetivo en este mundo....`;}        
-                                            else if (tiempo>9000 && tiempo<=10800) // 2.5 Minuto                                                            
-                                                    { mostrartiempo.innerHTML = `${formatoHora(tiempo)} 😵 Mejor ni sigas intentando....`;}        
-                                                        else if (tiempo>10800) // 3.0 Minuto                                                            
-                                                            { mostrartiempo.innerHTML = `${formatoHora(tiempo)} 👿 Me imagino que vives en Ciudad Sandino...`;}        
-            
-    }, 5);    
+function contartiempo() {
+    if (gano==true ) return
+   tiemporegresivoId = setInterval(() => {
+   tiempo++;
+   mostrartiempo.innerHTML = `${formatoHora(tiempo)}`;
+    if (tiempo<=1800) // 0.5 Minuto
+    { 
+        mostrarmensaje.innerHTML = `😀 💪 Tú puedes...`;
+    }
+    else if (tiempo>1800 && tiempo<=3600) // 1  Minuto
+    { 
+        mostrarmensaje.innerHTML = `😳 Hagale mijo de una...`;
+    }
+    else if (tiempo>3600 && tiempo<=5400) // 1.5 Minuto
+    { 
+        mostrarmensaje.innerHTML = `😒 Estas seguro que puedes con este juego...`;
+    }
+    else if (tiempo>5400 && tiempo<=7200) // 2 Minuto
+    { 
+        mostrarmensaje.innerHTML = `🤔 Para completarlo, puedes pedir medio día de vacaciones...`;
+    }
+    else if (tiempo>7200 && tiempo<=9000) // 2.5 Minuto
+    { 
+        mostrarmensaje.innerHTML = `😴 Ánimo...`;
+    }
+    else if (tiempo>9000 && tiempo<=10800) // 3 Minuto
+    { 
+        mostrarmensaje.innerHTML = `😡 Parece que vamos mal... `;
+    }
+    else if (tiempo>10800 && tiempo<=12600) // 3 Minuto
+    { 
+        mostrarmensaje.innerHTML = `👿 Que pasa, que no completas el juego...`;
+    }else if (tiempo>12600 && tiempo<=14400) // 3.5 Minuto
+    { 
+        mostrarmensaje.innerHTML = `🤤 🤒  me siento mareado...`;
+    }else if (tiempo>14400) // 3.5 Minuto
+    { 
+        mostrarmensaje.innerHTML = `⏰ te dejo, esto va para largo...`;
+    }
+
+    }, 21);
 }
 function formatoHora(seconds)
 {
@@ -110,7 +133,8 @@ function compareMatriz(MatrizActual)
     // si las matrices son iguales, ha ganado
     if (matrizOriginal().toString()==MatrizActual.toString())
     {
-
+            gano=true
+            mostrarmensaje.innerHTML=`🎆🎑🎁🎉🎊 FELICIDADES !!!`
             var duration = 15 * 1000;
             var animationEnd = Date.now() + duration;
             var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
@@ -129,12 +153,13 @@ function compareMatriz(MatrizActual)
             }, 250);
             mostrartiempo.innerHTML = `${formatoHora(tiempo)} 🎊 🎇 🏆 Exito....`;
             setTimeout(()=>{
-                matriz = MatrizInicial()                
+                matriz = MatrizInicial()
                 pintarpieza()
                 agregarEvento()
-                tiempo=0                
+                tiempo=0
+                gano=false
                 contartiempo()
-            },5000);
+            },8000);
 
 
 
