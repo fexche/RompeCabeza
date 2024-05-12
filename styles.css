@@ -30,7 +30,7 @@ background-color: #00bbff ;
 }
 .first-screen{    
     position: absolute;    
-    font-size: 25px;
+    font-size: 20px;
     top: 10%;
     left: 40%;
     transform: translate(-50%, -50%);    
@@ -52,7 +52,7 @@ background-color: #00bbff ;
 }
 .section{
         position: absolute;    
-        font-size: 25px;
-        top: 80%;
+        font-size:15px;
+        top: 85%;
         left: 10%;
 }
